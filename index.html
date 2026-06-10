@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Foods & APUSH</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap');
+
+    :root {
+      --mango:    #f59e0b;
+      --avocado:  #4ade80;
+      --cassava:  #d97706;
+      --kiwi:     #84cc16;
+      --citrus:   #fb923c;
+      --dark:     #111827;
+      --card-bg:  #1f2937;
+      --text:     #e5e7eb;
+      --muted:    #9ca3af;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--dark);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.75;
+    }
+
+    /* HERO */
+    header {
+      background: linear-gradient(135deg, #1a0a00 0%, #0f1a0a 50%, #0a0f1a 100%);
+      padding: 80px 20px 60px;
+      text-align: center;
+      border-bottom: 1px solid #374151;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '🥭🥑🌿🥝🍊';
+      font-size: 3rem;
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0.12;
+      letter-spacing: 12px;
+      pointer-events: none;
+    }
+
+    header .label {
+      display: inline-block;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.4);
+      color: var(--mango);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(90deg, #f59e0b, #fb923c, #4ade80, #84cc16);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 24px 20px;
+      background: #161d28;
+      border-bottom: 1px solid #374151;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav a:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-mango   { color: var(--mango);   border-color: var(--mango);   background: rgba(245,158,11,0.08); }
+    .nav-avocado { color: var(--avocado); border-color: var(--avocado); background: rgba(74,222,128,0.08); }
+    .nav-cassava { color: var(--cassava); border-color: var(--cassava); background: rgba(217,119,6,0.08); }
+    .nav-kiwi    { color: var(--kiwi);    border-color: var(--kiwi);    background: rgba(132,204,22,0.08); }
+    .nav-citrus  { color: var(--citrus);  border-color: var(--citrus);  background: rgba(251,146,60,0.08); }
+
+    /* MAIN */
+    main { max-width: 900px; margin: 0 auto; padding: 60px 20px 100px; }
+
+    /* FRUIT SECTION */
+    .fruit-section {
+      margin-bottom: 80px;
+      scroll-margin-top: 90px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid;
+    }
+
+    .section-header .emoji {
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .section-header .origin-tag {
+      margin-left: auto;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* cards */
+    .cards { display: grid; gap: 16px; grid-template-columns: 1fr; }
+
+    @media (min-width: 640px) { .cards { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 900px) { .cards { grid-template-columns: 1fr 1fr 1fr; } }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid #374151;
+      border-radius: 14px;
+      padding: 22px 20px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover { transform: translateY(-3px); }
+
+    .card-icon {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* APUSH callout */
+    .apush-callout {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border-left: 4px solid;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .apush-callout .apush-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .apush-callout p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* color schemes per fruit */
+    .mango  .section-header { border-color: var(--mango); }
+    .mango  .section-header h2 { color: var(--mango); }
+    .mango  .section-header .origin-tag { background: rgba(245,158,11,0.15); color: var(--mango); border: 1px solid rgba(245,158,11,0.3); }
+    .mango  .card:hover { border-color: var(--mango); }
+    .mango  .card h3 { color: var(--mango); }
+    .mango  .apush-callout { border-color: var(--mango); }
+    .mango  .apush-callout .apush-label { color: var(--mango); }
+
+    .avocado .section-header { border-color: var(--avocado); }
+    .avocado .section-header h2 { color: var(--avocado); }
+    .avocado .section-header .origin-tag { background: rgba(74,222,128,0.12); color: var(--avocado); border: 1px solid rgba(74,222,128,0.3); }
+    .avocado .card:hover { border-color: var(--avocado); }
+    .avocado .card h3 { color: var(--avocado); }
+    .avocado .apush-callout { border-color: var(--avocado); }
+    .avocado .apush-callout .apush-label { color: var(--avocado); }
+
+    .cassava .section-header { border-color: var(--cassava); }
+    .cassava .section-header h2 { color: var(--cassava); }
+    .cassava .section-header .origin-tag { background: rgba(217,119,6,0.15); color: var(--cassava); border: 1px solid rgba(217,119,6,0.3); }
+    .cassava .card:hover { border-color: var(--cassava); }
+    .cassava .card h3 { color: var(--cassava); }
+    .cassava .apush-callout { border-color: var(--cassava); }
+    .cassava .apush-callout .apush-label { color: var(--cassava); }
+
+    .kiwi .section-header { border-color: var(--kiwi); }
+    .kiwi .section-header h2 { color: var(--kiwi); }
+    .kiwi .section-header .origin-tag { background: rgba(132,204,22,0.12); color: var(--kiwi); border: 1px solid rgba(132,204,22,0.3); }
+    .kiwi .card:hover { border-color: var(--kiwi); }
+    .kiwi .card h3 { color: var(--kiwi); }
+    .kiwi .apush-callout { border-color: var(--kiwi); }
+    .kiwi .apush-callout .apush-label { color: var(--kiwi); }
+
+    .citrus .section-header { border-color: var(--citrus); }
+    .citrus .section-header h2 { color: var(--citrus); }
+    .citrus .section-header .origin-tag { background: rgba(251,146,60,0.12); color: var(--citrus); border: 1px solid rgba(251,146,60,0.3); }
+    .citrus .card:hover { border-color: var(--citrus); }
+    .citrus .card h3 { color: var(--citrus); }
+    .citrus .apush-callout { border-color: var(--citrus); }
+    .citrus .apush-callout .apush-label { color: var(--citrus); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid #374151;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="label">AP United States History</div>
+    <h1>Global Foods &amp; American Culture</h1>
+    <p>How five fruits traveled the world and shaped the United States through trade, migration, and cultural exchange.</p>
+  </header>
+
+  <nav>
+    <a href="#mango"   class="nav-mango">🥭 Mango</a>
+    <a href="#avocado" class="nav-avocado">🥑 Avocado</a>
+    <a href="#cassava" class="nav-cassava">🌿 Cassava</a>
+    <a href="#kiwi"    class="nav-kiwi">🥝 Kiwi</a>
+    <a href="#citrus"  class="nav-citrus">🍊 Citrus</a>
+  </nav>
+
+  <main>
+
+    <!-- MANGO -->
+    <section id="mango" class="fruit-section mango">
+      <div class="section-header">
+        <span class="emoji">🥭</span>
+        <h2>Mango</h2>
+        <span class="origin-tag">Origin: South Asia</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🚢</div>
+          <h3>Introduction</h3>
+          <p>Mangoes originated in India and Myanmar, cultivated for thousands of years. European trade networks during the Age of Exploration spread them globally. By the late 1800s, steamships and refrigeration made tropical fruit transport to the U.S. possible. Immigration from South Asia, Latin America, and the Caribbean created demand in American cities.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏙️</div>
+          <h3>Integration</h3>
+          <p>Immigrant communities brought mango traditions with them during the late 19th and 20th centuries. Mangoes became central to South Asian, Caribbean, and Latin American cuisines across the U.S. Urbanization exposed more Americans to diverse foods. Over time, mangoes became linked to healthy eating and cultural pluralism.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛒</div>
+          <h3>Today</h3>
+          <p>Now found in grocery stores nationwide, mangoes appear in smoothies, desserts, fruit salads, and international dishes. Their availability reflects the interconnected global economy. American diets have grown increasingly diverse as immigrant groups continue shaping food culture.</p>
+        </div>
+      </div>
+      <div class="apush-callout">
+        <div class="apush-label">⚡ APUSH Connections</div>
+        <p>Migration · Cultural Exchange · Globalization · Cultural Pluralism · Continuity &amp; Change Over Time — Mango's journey maps directly onto the forces that shaped the Industrial Era and beyond.</p>
+      </div>
+    </section>
+
+    <!-- AVOCADO -->
+    <section id="avocado" class="fruit-section avocado">
+      <div class="section-header">
+        <span class="emoji">🥑</span>
+        <h2>Avocado</h2>
+        <span class="origin-tag">Origin: Mexico &amp; Central America</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🌎</div>
+          <h3>Introduction</h3>
+          <p>Avocados were cultivated by Indigenous peoples long before European contact. The Columbian Exchange helped spread them throughout the Americas. In the 19th century, American agricultural expansion brought avocado farming to California and Florida. Trade agreements with Latin America further increased imports.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌮</div>
+          <h3>Integration</h3>
+          <p>Mexican-American community growth in the Southwest normalized avocados in regional diets. Cultural diffusion introduced guacamole to a broader audience. During the 20th century, health-conscious diets boosted demand for avocados' healthy fats. Social media and food trends accelerated mainstream popularity.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌾</div>
+          <h3>Today</h3>
+          <p>Avocados are a staple in guacamole, salads, and sandwiches. California is a major producer; Mexico is a major exporter. The avocado's rise highlights the deep economic and cultural relationship between the U.S. and Latin America, turning a foreign food into a mainstream American symbol.</p>
+        </div>
+      </div>
+      <div class="apush-callout">
+        <div class="apush-label">⚡ APUSH Connections</div>
+        <p>Columbian Exchange · Immigration · Cultural Diffusion · Economic Interdependence · U.S.–Latin America Relations — The avocado is a living artifact of these foundational APUSH themes.</p>
+      </div>
+    </section>
+
+    <!-- CASSAVA -->
+    <section id="cassava" class="fruit-section cassava">
+      <div class="section-header">
+        <span class="emoji">🌿</span>
+        <h2>Cassava</h2>
+        <span class="origin-tag">Origin: South America</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🗺️</div>
+          <h3>Introduction</h3>
+          <p>Cassava was cultivated by Indigenous South American societies before colonization. The Columbian Exchange spread it globally through trade and migration. Caribbean, Latin American, and African immigrants later introduced cassava-based foods to U.S. communities. Global trade networks made cassava flour and tapioca products widely available.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🍽️</div>
+          <h3>Integration</h3>
+          <p>Immigrant communities used cassava to preserve traditional practices. Caribbean and Latin American restaurants introduced cassava dishes to new audiences. Growing multiculturalism made Americans more open to diverse foods. Specialty grocery stores expanded access, and the gluten-free diet trend gave cassava a whole new market.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧁</div>
+          <h3>Today</h3>
+          <p>Cassava is now used in tapioca, flour, bread, and snack products. It remains a staple in Caribbean, African, and Latin American communities across the U.S. Its rise in gluten-free products shows how traditional foods can find new relevance in modern consumer trends.</p>
+        </div>
+      </div>
+      <div class="apush-callout">
+        <div class="apush-label">⚡ APUSH Connections</div>
+        <p>Columbian Exchange · Migration · Cultural Pluralism · Globalization · Immigrant Community Preservation — Cassava's history spans from pre-contact Indigenous farming to 21st-century health food trends.</p>
+      </div>
+    </section>
+
+    <!-- KIWI -->
+    <section id="kiwi" class="fruit-section kiwi">
+      <div class="section-header">
+        <span class="emoji">🥝</span>
+        <h2>Kiwi</h2>
+        <span class="origin-tag">Origin: China → New Zealand</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">✈️</div>
+          <h3>Introduction</h3>
+          <p>Kiwifruit originated in China and was commercially developed in New Zealand. Post-WWII global trade expansion brought kiwi to U.S. supermarkets. Advances in refrigeration, transportation, and distribution made imported fruits broadly accessible. Marketing campaigns introduced Americans to this previously unfamiliar fruit.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🍵</div>
+          <h3>Integration</h3>
+          <p>As American interest in international foods grew, kiwi's unique look and flavor gained fans. Restaurants and grocers marketed it as exotic and nutritious. Increased global travel and cultural exchange normalized foods from around the world. Kiwi found its place in salads, desserts, and smoothies across the country.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛍️</div>
+          <h3>Today</h3>
+          <p>Kiwi is now a common supermarket staple used in a wide variety of foods and drinks. Its story is a clear illustration of how post-WWII globalization transformed American consumption patterns and made the world's produce shelves available in every neighborhood.</p>
+        </div>
+      </div>
+      <div class="apush-callout">
+        <div class="apush-label">⚡ APUSH Connections</div>
+        <p>Globalization · Post-WWII Economic Interdependence · Technological Innovation in Transportation · Changing Consumer Culture — Kiwi is the clearest example of Cold War–era globalization reshaping everyday American life.</p>
+      </div>
+    </section>
+
+    <!-- CITRUS -->
+    <section id="citrus" class="fruit-section citrus">
+      <div class="section-header">
+        <span class="emoji">🍊</span>
+        <h2>Citrus Fruits</h2>
+        <span class="origin-tag">Origin: Asia → Spanish Colonies</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">⛵</div>
+          <h3>Introduction</h3>
+          <p>Citrus originated in Asia and arrived in the Americas via Spanish explorers during the Columbian Exchange — one of history's most transformative events. Spanish missionaries planted citrus throughout their colonies. As American settlement expanded, Florida and California became major growing regions. Railroads in the Gilded Age enabled nationwide distribution.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🧃</div>
+          <h3>Integration</h3>
+          <p>Citrus became popular for its nutrition and scalability in commercial agriculture. Late-19th-century agricultural expansion, refrigerated rail cars, and advertising campaigns made citrus a household staple. Orange juice became the quintessential American breakfast drink. Their rise mirrors industrialization and the birth of mass consumer culture.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🍋</div>
+          <h3>Today</h3>
+          <p>Citrus fruits are consumed across the U.S. in drinks, desserts, cooking, and food manufacturing. They have remained important for centuries while methods of production and distribution have transformed — a textbook case of continuity and change over time in American history.</p>
+        </div>
+      </div>
+      <div class="apush-callout">
+        <div class="apush-label">⚡ APUSH Connections</div>
+        <p>Columbian Exchange · Gilded Age Agriculture · Railroad Era · Industrialization · Mass Consumer Culture · Continuity &amp; Change Over Time — Citrus is one of the oldest APUSH stories still playing out on grocery store shelves today.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>AP United States History — Global Foods Project &nbsp;|&nbsp; 2026</p>
+  </footer>
+
+</body>
+</html>
